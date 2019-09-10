@@ -87,4 +87,11 @@ const konamiCode = (cb) => {
       alert("Don't steal our content please.");
     });
   });
+
+  const images = document.querySelectorAll('img');
+  images.forEach((image) => {
+    image.addEventListener('auxclick', () => {
+      document.querySelector('body').style.cssText = `background-color: ${colors[Math.floor((Math.random() * colors.length))]}`;
+    });
+  });
 })());
