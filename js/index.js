@@ -83,6 +83,10 @@ const konamiCode = (cb) => {
 
   const paragraphs = document.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {
+    paragraph.addEventListener('paste', () => {
+      alert("No, really, don't paste it :(");
+    });
+
     paragraph.addEventListener('copy', () => {
       alert("Don't steal our content please.");
     });
