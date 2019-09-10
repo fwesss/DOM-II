@@ -48,7 +48,7 @@ const animateCharacterColors = (el, inColor, outColor, time, type) => {
   }
 };
 
-function onKonamiCode(cb) {
+const konamiCode = (cb) => {
   let input = '';
   const key = '38384040373937396665';
   document.addEventListener('keydown', (e) => {
@@ -62,7 +62,7 @@ function onKonamiCode(cb) {
     input = (`${e.keyCode}`);
     return false;
   });
-}
+};
 
 ((() => {
   const title = document.querySelector('h1');
@@ -79,5 +79,12 @@ function onKonamiCode(cb) {
     animateCharacterColors(heading, colors[Math.floor((Math.random() * colors.length))], '', 100, 'hover');
   });
 
-  onKonamiCode(() => { alert('Secret unlocked!'); });
+  konamiCode(() => { alert('Secret unlocked!'); });
+
+  const paragraphs = document.querySelectorAll('p');
+  paragraphs.forEach((paragraph) => {
+    paragraph.addEventListener('copy', () => {
+      alert("Don't steal our content please.");
+    });
+  });
 })());
