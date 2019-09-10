@@ -97,6 +97,14 @@ const konamiCode = (cb) => {
     image.addEventListener('auxclick', () => {
       document.querySelector('body').style.cssText = `background-color: ${colors[Math.floor((Math.random() * colors.length))]}`;
     });
+
+    let scale = 1;
+    image.onwheel = (event) => {
+      event.preventDefault();
+      scale += event.deltaY * -0.01;
+      scale = Math.min(Math.max(0.125, scale), 4);
+      image.style.transform = `scale(${scale})`;
+    };
   });
 
   window.addEventListener('resize', () => {
