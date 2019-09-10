@@ -1,3 +1,11 @@
+const colors = [
+  '#1493a6',
+  '#1449a5',
+  '#a61449',
+  '#a67014',
+  '#14a671',
+];
+
 const wrapCharacters = (str, parent) => {
   parent.textContent = '';
   for (let i = 0; i < str.length; i += 1) {
@@ -12,27 +20,20 @@ const setElementColor = (el, startColor, endColor, time) => {
   el.style.color = endColor;
 };
 
-((() => {
-  const title = document.querySelector('.logo-heading');
-  const titleText = title.textContent;
-  const titleTextCharacters = titleText.split('');
+const animateCharacterColors = (el, inColor, outColor, time, type) => {
+  const changeColors = (startColor, endColor) => {
+    let child = 0;
+    const interval = setInterval(() => {
+      if (child < el.childNodes.length) {
+        setElementColor(el.childNodes[child], startColor, endColor, time);
+        child += 1;
+      } else {
+        clearInterval(interval);
+      }
+    }, time);
+  };
 
-  // Replace text content with series of spans for each character of original text
-  wrapCharacters(titleTextCharacters, title);
-
-  const animateCharacterColors = (el, inColor, outColor, time) => {
-    const changeColors = (startColor, endColor) => {
-      let child = 0;
-      const interval = setInterval(() => {
-        if (child < el.childNodes.length) {
-          setElementColor(el.childNodes[child], startColor, endColor, time);
-          child += 1;
-        } else {
-          clearInterval(interval);
-        }
-      }, time);
-    };
-
+  if (type === 'hover') {
     el.addEventListener('mouseover', () => {
       changeColors(outColor, inColor, time);
     });
@@ -40,7 +41,43 @@ const setElementColor = (el, startColor, endColor, time) => {
     el.addEventListener('mouseout', () => {
       changeColors(inColor, outColor, time);
     });
-  };
+  } else {
+    el.addEventListener(type, () => {
+      changeColors(outColor, inColor, time);
+    });
+  }
+};
 
-  animateCharacterColors(title, '#17a2b8', '', 100);
+function onKonamiCode(cb) {
+  let input = '';
+  const key = '38384040373937396665';
+  document.addEventListener('keydown', (e) => {
+    input += (`${e.keyCode}`);
+    if (input === key) {
+      return cb();
+    }
+    if (!key.indexOf(input)) {
+      return false;
+    }
+    input = (`${e.keyCode}`);
+    return false;
+  });
+}
+
+((() => {
+  const title = document.querySelector('h1');
+  const headings = document.querySelectorAll('h2, h4');
+
+  const titleTextCharacters = title.textContent.split('');
+  wrapCharacters(titleTextCharacters, title);
+  animateCharacterColors(title, colors[Math.floor((Math.random() * colors.length))], '', 100, 'dblclick');
+  animateCharacterColors(title, colors[Math.floor((Math.random() * colors.length))], '', 100, 'click');
+
+  headings.forEach((heading) => {
+    const headingTextCharacters = heading.textContent.split('');
+    wrapCharacters(headingTextCharacters, heading);
+    animateCharacterColors(heading, colors[Math.floor((Math.random() * colors.length))], '', 100, 'hover');
+  });
+
+  onKonamiCode(() => { alert('Secret unlocked!'); });
 })());
