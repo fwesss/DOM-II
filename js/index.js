@@ -94,4 +94,9 @@ const konamiCode = (cb) => {
       document.querySelector('body').style.cssText = `background-color: ${colors[Math.floor((Math.random() * colors.length))]}`;
     });
   });
+
+  window.addEventListener('resize', () => {
+    document.querySelector('body').style.cssText = 'background-color: black';
+    document.querySelector('*').style.color = 'gray';
+  });
 })());
