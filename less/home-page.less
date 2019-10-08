@@ -1,5 +1,7 @@
-.home {
+@import "variables";
+@import "mixins";
 
+.home {
   .intro {
     padding: 90px 0 10px;
     border-bottom: 2px dashed @navigation-border;
@@ -15,13 +17,11 @@
   }
 
   .content-section {
-    margin: 30px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 30px 0;
 
-   
-    
     .text-content {
       width: 48%;
       padding-right: 1%;
@@ -56,8 +56,8 @@
     border-bottom: 2px dashed @navigation-border;
 
     .text-content {
-      padding-left: 1%;
       padding-right: 0;
+      padding-left: 1%;
 
       @media @mobile {
         order: 1;
@@ -88,10 +88,10 @@
   }
 
   .content-pick {
-    padding-top: 30px;
-    border-top: 2px dashed @navigation-border;
     display: flex;
     justify-content: space-between;
+    padding-top: 30px;
+    border-top: 2px dashed @navigation-border;
 
     @media @mobile {
       flex-wrap: wrap;
@@ -105,10 +105,10 @@
         width: 80%;
         margin: 0 auto 30px;
       }
-      
+
       .btn {
-        .button-creator(200px, 45px, @button-bg, @white, 1.8rem);     
+        .button-creator(200px, 45px, @button-bg, @white, 1.8rem);
       }
     }
   }
-}// home
+} // home
